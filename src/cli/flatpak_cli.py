@@ -33,16 +33,20 @@ class FlatpakCLI:
     def _execute(action: str, search_term: str, flathub=False):
         Responses.welcome_mode(f"flatpak {action}")
         
+        command = None
         flatpak_app_id = FlatpakCLI.search(search_term, flathub, welcome=False)
         if not flatpak_app_id:
             print(f"❌ No Flatpak app found for '{search_term}'")
             return
-
-        if action == "install" and flathub:
-            command = ["flatpak", action, "flathub", flatpak_app_id]
-        else:
-            command = ["flatpak", action, flatpak_app_id]
-
+        if action == "install":
+            command = ["flatpak", "install", "flathub", flatpak_app_id]
+        elif action in ["uninstall", "remove"] :
+            command = ["flatpak", "remove", flatpak_app_id]
+        elif action == "run":
+            command = ["flatpak", "run", flatpak_app_id]
+        if command is None:
+            print(f"❌Unknown action '{action}")
+            return
         try:
             CLICommon.run_command(command)
             print(f"✅ Successfully executed '{action}' on '{flatpak_app_id}'")
@@ -51,7 +55,11 @@ class FlatpakCLI:
 
     @staticmethod
     def uninstall(search_term: str):
-        FlatpakCLI._execute("uninstall", search_term)
+        FlatpakCLI._execute("remove", search_term)
+
+    @staticmethod
+    def remove(search_term: str):
+        FlatpakCLI._execute("remove", search_term)
     
     @staticmethod
     def run(search_term: str):
@@ -60,12 +68,3 @@ class FlatpakCLI:
     @staticmethod
     def install(search_term: str, flathub=True):
         FlatpakCLI._execute("install", search_term, flathub)
-
-
-        
-        
-        
-    
-
-
-
