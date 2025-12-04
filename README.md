@@ -1,17 +1,38 @@
-# Flatgrep ⚡*Alpha v0.1.3*
-> Automated searches for boring CLI tools.
+# Flatgrep ⚡*v0.2.5*
+> Automated search for boring CLI.
 
-Tired of typing by hand `flatpak run com.something.veryobnoxious`?  
+Tired of typing by hand `flatpak list | grep com.something.veryobnoxious`?  
 Try **Flatgrep** for fuzzy search and grep what you want in just seconds. 
-
-* **Quick test :** 
-```bash
-flatgrep run mpv
-```
 
 * **Fast and easy install apps from Flathub:**
 ```bash
-flatgrep install firefox
+flatgrep install mpv
+```
+
+* **Quickly copy app id from installed apps:**
+```bash
+flatgrep copy mpv
+```
+
+* **Swiftly uninstall flatpak app by regular name:**
+```bash
+flatgrep remove vlc
+```
+
+* **Fuzzy search all app ids from installed apps:**
+```bash
+flatgrep list
+```
+
+* **Copy id if installed, otherwise install from flathub:**
+```bash
+flatgrep mpv
+```
+
+# Installation
+* **Quick Installation:** 
+```bash
+pipx install flatgrep
 ```
 
 ## What is Flatgrep?
@@ -38,14 +59,27 @@ Tired of trying to guess the exact application ID for a Flatpak? The default `fl
 * 🚀 **Full Management Suite**: Provides intuitive commands for `search`, `install`, `run`, and `uninstall`.
 
 ## Command Table 
-
+**Usage:** `flatgrep [install|search|remove|run|copy|list] app name`
 | Action                          | Linux Command                          |
 |---------------------------------|----------------------------------------|
-| **Search on Flathub**           | `flatgrep search "app name" --flathub` |
-| **List locally installed apps** | `flatgrep search "app name"`           |
-| **Install an app from Flathub** | `flatgrep install "app name"`          |
-| **Run an app**                  | `flatgrep run "app name"`              |
-| **Uninstall an app**            | `flatgrep uninstall "app name"`        |
+| **Install an app from Flathub** | `flatgrep install app name`            |
+| **Fuzzy search installed apps** | `flatgrep list`                        |
+| **Copy installed app id**       | `flatgrep copy app name`               |
+| **Run an app**                  | `flatgrep run app name`                |
+| **Uninstall an app**            | `flatgrep uninstall app name`          |
+| **Uninstall an app**            | `flatgrep remove app name`             |
+| **Copy local / install**        | `flatgrep app name`                    |
+
+**Examples:**
+| Action                          | Example Command                | Description |
+|---------------------------------|--------------------------------|-------------|
+| **Install an app from Flathub** | `flatgrep install vlc`         | Installs the VLC media player via Flathub. |
+| **Fuzzy search installed apps** | `flatgrep list`                | Lists all installed applications. |
+| **Copy installed app id**       | `flatgrep copy gimp`           | Copies the installed GIMP app ID to the clipboard. |
+| **Run an app**                  | `flatgrep run vlc`             | Runs the VLC media player. |
+| **Uninstall an app**            | `flatgrep remove vlc`          | Removes/uninstalls VLC. |
+| **Copy local / install**        | `flatgrep gimp`                | Searches for the app and allows copying or installing it. |
+
 
 ---
 
@@ -54,9 +88,16 @@ Tired of trying to guess the exact application ID for a Flatpak? The default `fl
 #### Prerequisites
 
 Before you begin, make sure you have the following installed on your system:
-* Python 3.8+
-* Flatpak
-* `fzf` (a command-line fuzzy finder)
+* [Python 3.8+](https://www.python.org/downloads/)
+* [Flatpak](https://flatpak.org/setup/)
+* [fzf](https://github.com/junegunn/fzf?tab=readme-ov-file#installation)
+* [uv python package manager](https://docs.astral.sh/uv/getting-started/installation/)
+* [pipx (optional)](https://github.com/pypa/pipx?tab=readme-ov-file#install-pipx)
+
+You can install `uv` using pipx:
+```bash
+pipx install uv
+```
 
 You can install `fzf` using your system's package manager:
 ```bash
@@ -72,33 +113,18 @@ sudo pacman -S fzf
 
 #### Clone Git Repository
 ```bash
-git clone git@github.com:rodhfr/flatgrep.git
-cd flatgrep/src
+git clone https://github.com/rodhfr/flatgrep.git
+cd flatgrep
 ```
 
-#### Setup Python Virtual Environment 
+#### Setup environment with uv
 ```bash
-# Create python virtual environment (isolated dependencies)
-python -m venv .venv
-
-# Activate the virtual python shell
-source .venv/bin/activate # also works for zsh
-#source .venv/bin/activate.fish # uncomment this line for fish shell
-
-# Install python library requeriments
-pip install -r requirements.txt
+uv install
 ```
 
-#### Install
+#### Test
 ```bash
-# installation is just a binary in $HOME/.local/bin
-sh build_and_install.sh
-```
-
-#### Uninstall
-```bash
-# Or just remove the binary located in $HOME/.local/bin
-sh uninstall.sh
+uv run flatgrep
 ```
 
 ---
@@ -114,12 +140,12 @@ sh uninstall.sh
 - [x] Write building instructions and program description. 'feature: 2025-09-16.v0.1.3'
 
 ### Planned 🛠️
-- [ ] Write installation guide.
-- [ ] Release in some package manager.
-- [ ] Write documentation.
+- [x] Write installation guide.
+- [x] Release in some package manager.
+- [x] Write documentation.
+- [x] Run mode update: Auto install app if not available.
+- [x] Proper sanitize search command.
 - [ ] Search mode also searches by app names not only app ids.
-- [ ] Run mode update: Auto install app if not available.
-- [ ] Proper sanitize search command.
 
 ### Potential Features 🤔
 - [ ] Other package managers like dnf/pacman/aur helpers.
