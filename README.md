@@ -1,4 +1,4 @@
-# Flatgrep ⚡*v0.2.5*
+# Flatgrep ⚡ 
 > Automated search for boring CLI.
 
 Tired of typing by hand `flatpak list | grep com.something.veryobnoxious`?  
