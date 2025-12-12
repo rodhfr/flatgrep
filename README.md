@@ -134,18 +134,17 @@ uv run flatgrep
 ### Released Features ✅
 - [x] Search installed Flatpak app IDs.
 - [x] Copy app IDs to the clipboard.
-- [x] Install Flatpaks via fuzzy search with `--flathub` flag.
+- [x] Install Flatpaks via fuzzy search with install argument
 - [x] Rich-text console.
 - [x] Run Flatpaks with `run` mode 'feature: 2025-09-15.v0.1.1'
 - [x] Write building instructions and program description. 'feature: 2025-09-16.v0.1.3'
-
-### Planned 🛠️
 - [x] Write installation guide.
 - [x] Release in some package manager.
 - [x] Write documentation.
 - [x] Run mode update: Auto install app if not available.
-- [x] Proper sanitize search command.
-- [ ] Search mode also searches by app names not only app ids.
+- [x] Opt-in run flatpak after install
 
-### Potential Features 🤔
-- [ ] Other package managers like dnf/pacman/aur helpers.
+### Planned 🛠️
+- [ ] Search mode also searches by app names not only app ids.
+- [ ] Search mode only searches flathub
+- [ ] Proper sanitize commands with more than one argument
