@@ -1,6 +1,5 @@
 # @Author: Rodolfo Souza
 # Year = 2025
-# Subject to copyright
 
 #!/usr/bin/env python3
 import sys, subprocess, re, pyperclip
@@ -61,8 +60,19 @@ def install(term):
             if result.returncode == 0:
                 console.print(f"[green]Installed:[/] {app}")
                 copycmd = f"flatpak run {app}"
-                pyperclip.copy(copycmd)
-                console.print(f"[blue]Copied to clipboard:[/] {copycmd}")
+                pyperclip.copy(app)
+                console.print(f"[blue]Copied to clipboard:[/] {app}")
+                vl = input(f"Do you want to run {app}? (Y/N)")
+                if vl.lower() == "y":
+                    resultrun = subprocess.run( 
+                        ["flatpak", "run", app], 
+                        text=True,
+                    )
+                    if resultrun.returncode == 0:
+                        console.print(f"[green]The app is openning...[/]")
+                    else:
+                        console.print(f"[red]Some error when opening...[/]")
+                        console.print(f"[red]{resultrun.returncode} ...[/]")
             else:
                 console.print(f"[yellow]Installation cancelled by user[/]")
                 pyperclip.copy(app)
